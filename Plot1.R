@@ -1,0 +1,8 @@
+library(dplyr)
+library(naniar)
+df <- read.csv("~/R Projects/ExData_Plotting1/Data/household_power_consumption.txt", sep=";", stringsAsFactors = FALSE)
+df2 <- filter(df, Date=="1/2/2007" | Date=="2/2/2007" )
+rm(df)
+df2 %>% replace_with_na_all(condition = ~.x== "?")
+df2$Global_active_power <-  as.numeric(df2$Global_active_power)
+hist(df2$Global_active_power, xlab="Global Active Power (killowatts)", col = "red", main = "Global Active Power")
